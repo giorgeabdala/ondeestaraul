@@ -1,0 +1,14 @@
+
+Personal Python study project with Alexa integration.
+
+It is triggered with the phrase "start Where is Raul".
+
+The intent "Where is Raul" responds with the probable location of Raul.
+
+#####################
+
+Projeto pessoal de estudo em Python com integração com a Alexa.
+
+É acionado com a frase "iniciar Onde está o Raul".
+
+A intent "Onde está o Raul" responde com a provável localização do Raul. 
