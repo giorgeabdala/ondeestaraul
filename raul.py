@@ -17,8 +17,8 @@ def onde_esta_raul():
 
     #pega o dia e a hora atual
     hoje = datetime.now(brazil).weekday()
-    hora = datetime.now(brazil).hour()
-    minutos = datetime.now(brazil).minute()
+    hora = datetime.now(brazil).hour
+    minutos = datetime.now(brazil).minute
 
     speak_output = "Não sei onde o Raul está..."
 
@@ -75,8 +75,8 @@ def rotina_diaria(hora):
 def sexta_feira(hora):
     if hora >= 18:
         return game
-    else:
-        return rotina_diaria(hora)
+
+    return rotina_diaria(hora)
 
 
 def is_morgando(dia, hr):
