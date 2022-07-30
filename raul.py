@@ -3,12 +3,12 @@ from pytz import timezone
 
 dia_semana = ("segunda", "terça", "quarta", "quinta", "sexta", "sabado", "domingo")
 
-quarto = "O Raul está no quarto vendo vídeos ou no Jiu-Jitsu"
-dormindo = "O Raul está dormindo"
-almoco = "O Raul provavelmente está almoçando ou se preparando"
-escola = "O Raul está na escola"
-game = "O Raul provavelmente está jogando video game"
-morgando = "O Raul está Morgando..."
+RAUL_QUARTO = "O Raul está no quarto vendo vídeos ou no Jiu-Jitsu"
+RAUL_DORMINDO = "O Raul está dormindo"
+RAUL_ALMOCANDO = "O Raul provavelmente está almoçando ou se preparando"
+RAUL_ESTUDANDO = "O Raul está na escola"
+RAUL_JOGANDO = "O Raul provavelmente está jogando video game"
+RAUL_MORGANDO = "O Raul está Morgando..."
 
 
 def onde_esta_raul():
@@ -20,34 +20,26 @@ def onde_esta_raul():
     hora = datetime.now(brazil).hour
     minutos = datetime.now(brazil).minute
 
-    speak_output = "Não sei onde o Raul está..."
 
     # faz o sabado e domingo
-    if final_semana(hoje):
-        speak_output = "Hoje é " + dia_semana[hoje] + ". " + game
+    if 5 <= hoje <= 6:
+        speak_output = "Hoje é " + dia_semana[hoje] + ". " + RAUL_JOGANDO
 
     else:
         speak_output = "Hoje é " + dia_semana[hoje] + " feira " + str(hora) + " horas e " + str(minutos) + " minutos. "
 
-        # faz a sexta feira
-        if hoje == 4:
-            speak_output = speak_output + sexta_feira(hora)
+    # faz a sexta feira
+    if hoje == 4:
+        speak_output = speak_output + sexta_feira(hora)
 
-        # segunda a quinta
-        if 0 <= hoje <= 3:
-            speak_output = speak_output + rotina_diaria(hora)
+    # segunda a quinta
+    if 0 <= hoje <= 3:
+        speak_output = speak_output + rotina_diaria(hora)
 
-        if is_morgando(hoje, hora):
-            speak_output = morgando
+    if is_morgando(hoje, hora):
+        speak_output = RAUL_MORGANDO
 
     return speak_output
-
-
-def final_semana(dia):
-    if dia == 5 or dia == 6:
-        return True
-
-    return False
 
 
 def seg_quinta(dia):
@@ -60,27 +52,27 @@ def seg_quinta(dia):
 # resolve a rotina diária do Raul des segunda a quinta baseada nos horários.
 def rotina_diaria(hora):
     if 0 <= hora < 2:
-        return quarto
-    elif 2 <= hora < 11:
-        return dormindo
-    elif 11 <= hora < 13:
-        return almoco
-    elif 13 <= hora < 18:
-        return escola
-    elif hora >= 18:
-        return quarto
+        return RAUL_QUARTO
+    if 2 <= hora < 11:
+        return RAUL_DORMINDO
+    if 11 <= hora < 13:
+        return RAUL_ALMOCANDO
+    if 13 <= hora < 18:
+        return RAUL_ESTUDANDO
+
+    return RAUL_QUARTO
 
 
 # retorna a rotina do Raul na sexta feira
 def sexta_feira(hora):
     if hora >= 18:
-        return game
+        return RAUL_JOGANDO
 
     return rotina_diaria(hora)
 
 
-def is_morgando(dia, hr):
-    if dia == 0 and 9 <= hr < 11:
+def is_morgando(dia, hora):
+    if dia == 0 and 9 <= hora < 11:
         return True
 
     return False
